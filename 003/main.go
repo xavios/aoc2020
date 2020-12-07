@@ -17,8 +17,21 @@ func main() {
 		l++
 	}
 	iMap := getBiggerMap(oMap, 80)
+	/*
+
+	   Right 1, down 1.
+	   Right 3, down 1. (This is the slope you already checked.)
+	   Right 5, down 1.
+	   Right 7, down 1.
+	   Right 1, down 2.
+
+	*/
 	fmt.Printf("oMap: %d, iMap: %d\n\n", l, len(strings.Split(iMap, "\n")))
-	fmt.Println(countTheTrees(iMap))
+	fmt.Printf("Right 1, down 1: %d\n", countTheTrees(iMap, 1, 1))
+	fmt.Printf("Right 3, down 1 %d\n", countTheTrees(iMap, 1, 3))
+	fmt.Printf("Right 5, down 1 %d\n", countTheTrees(iMap, 1, 5))
+	fmt.Printf("Right 7, down 1 %d\n", countTheTrees(iMap, 1, 7))
+	fmt.Printf("Right 1, down 2 %d\n", countTheTrees(iMap, 2, 1))
 }
 
 func getBiggerMap(oMap string, n int) string {
@@ -33,13 +46,15 @@ func getBiggerMap(oMap string, n int) string {
 	return nm
 }
 
-func countTheTrees(iMap string) int {
-	var x, c int
-	for _, line := range strings.Split(iMap, "\n") {
-		if string(line[x]) == "#" {
+func countTheTrees(iMap string, down, right int) int {
+	var x, y, c int
+	lines := strings.Split(iMap, "\n")
+	for y < len(lines) {
+		if string(lines[y][x]) == "#" {
 			c++
 		}
-		x += 3
+		x += right
+		y += down
 	}
 	return c
 }
